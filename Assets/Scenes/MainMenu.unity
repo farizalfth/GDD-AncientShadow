@@ -200,7 +200,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 17717845}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1512101725}
+        m_TargetAssemblyTypeName: MenuManager, NaughtyCharacter
+        m_MethodName: TutupSettings
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &17717845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -624,10 +636,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 334ca7b9e2833a64fb204e9261e78329, type: 3}
   m_Name: 
   m_EditorClassIdentifier: NaughtyCharacter::MenuManager
-  loadingCanvas: {fileID: 898354630}
   menuUtama: {fileID: 1041234728}
   settingsPanel: {fileID: 109541395}
   exitPanel: {fileID: 1161979754}
+  loadingCanvas: {fileID: 898354630}
+  namaSceneLevel1: Level1
 --- !u!4 &527680107
 Transform:
   m_ObjectHideFlags: 0
@@ -821,7 +834,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 559113523}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1512101725}
+        m_TargetAssemblyTypeName: MenuManager, NaughtyCharacter
+        m_MethodName: KeluarGameBeneran
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &559113523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1824,7 +1849,7 @@ PrefabInstance:
     - target: {fileID: 5793300797433399582, guid: f9970e270d05e0341b5cb2be97d7b1fa, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 527680106}
+      objectReference: {fileID: 1512101725}
     - target: {fileID: 5793300797433399582, guid: f9970e270d05e0341b5cb2be97d7b1fa, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1942,6 +1967,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1512101723}
   - component: {fileID: 1512101724}
+  - component: {fileID: 1512101725}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -1983,6 +2009,23 @@ MonoBehaviour:
   loadingDuration: 1.5
   hideDelay: 0.5
   loadingTextFormat: '{0}%'
+--- !u!114 &1512101725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1512101722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334ca7b9e2833a64fb204e9261e78329, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NaughtyCharacter::MenuManager
+  menuUtama: {fileID: 1041234728}
+  settingsPanel: {fileID: 109541395}
+  exitPanel: {fileID: 1161979754}
+  loadingCanvas: {fileID: 898354630}
+  namaSceneLevel1: Level1
 --- !u!1 &1609270508 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1368954820899591917, guid: f9970e270d05e0341b5cb2be97d7b1fa, type: 3}
@@ -2336,10 +2379,22 @@ PrefabInstance:
     - target: {fileID: 5793300797433399582, guid: f9970e270d05e0341b5cb2be97d7b1fa, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 527680105}
+      objectReference: {fileID: 1512101725}
     - target: {fileID: 5793300797433399582, guid: f9970e270d05e0341b5cb2be97d7b1fa, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5793300797433399582, guid: f9970e270d05e0341b5cb2be97d7b1fa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: MulaiGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 5793300797433399582, guid: f9970e270d05e0341b5cb2be97d7b1fa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MenuManager, NaughtyCharacter
+      objectReference: {fileID: 0}
+    - target: {fileID: 5793300797433399582, guid: f9970e270d05e0341b5cb2be97d7b1fa, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 8665922150610933122, guid: f9970e270d05e0341b5cb2be97d7b1fa, type: 3}
       propertyPath: m_text
@@ -2664,7 +2719,7 @@ PrefabInstance:
     - target: {fileID: 5793300797433399582, guid: f9970e270d05e0341b5cb2be97d7b1fa, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 527680106}
+      objectReference: {fileID: 1512101725}
     - target: {fileID: 5793300797433399582, guid: f9970e270d05e0341b5cb2be97d7b1fa, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -2861,6 +2916,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7238074691340589883, guid: adb8bbecb641e674e85642f5781b550d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1819338179}
+    - targetCorrespondingSourceObject: {fileID: 7238074691340589883, guid: adb8bbecb641e674e85642f5781b550d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1819338183}
   m_SourcePrefab: {fileID: 100100000, guid: adb8bbecb641e674e85642f5781b550d, type: 3}
 --- !u!224 &1819338174 stripped
 RectTransform:
@@ -2911,8 +2969,25 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_TargetDisplay: 0
+--- !u!114 &1819338183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1041234728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &1852967383
 GameObject:
   m_ObjectHideFlags: 0

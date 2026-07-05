@@ -5,9 +5,6 @@ using UnityEngine.EventSystems;
 
 namespace BloodlinesUI
 {
-    /// <summary>
-    /// Component for managing button text color states based on interaction
-    /// </summary>
     public class ButtonTextColorChanger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
     {
         public TextMeshProUGUI buttonText;
@@ -30,89 +27,52 @@ namespace BloodlinesUI
                 buttonText.color = defaultColor;
         }
 
-        void Update()
-        {
-            if (button != null)
-            {
-                bool newDisabledState = !button.interactable;
-                if (newDisabledState != isDisabled)
-                {
-                    isDisabled = newDisabledState;
-                    UpdateTextColor();
-                }
-            }
-        }
-
-        /// <summary>
-        /// Handle pointer enter event
-        /// </summary>
-        /// <param name="eventData">Pointer event data</param>
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (isDisabled) return;
-            
+            if (isDisabled || buttonText == null) return; // Tambahan pengaman
+
             isHighlighted = true;
             if (!isPressed)
                 buttonText.color = highlightedColor;
         }
 
-        /// <summary>
-        /// Handle pointer exit event
-        /// </summary>
-        /// <param name="eventData">Pointer event data</param>
         public void OnPointerExit(PointerEventData eventData)
         {
-            if (isDisabled) return;
-            
+            if (isDisabled || buttonText == null) return; // Tambahan pengaman
+
             isHighlighted = false;
             if (!isPressed)
                 buttonText.color = defaultColor;
         }
 
-        /// <summary>
-        /// Handle pointer down event
-        /// </summary>
-        /// <param name="eventData">Pointer event data</param>
         public void OnPointerDown(PointerEventData eventData)
         {
-            if (isDisabled) return;
-            
+            if (isDisabled || buttonText == null) return; // Tambahan pengaman
+
             isPressed = true;
             buttonText.color = pressedColor;
         }
 
-        /// <summary>
-        /// Handle pointer up event
-        /// </summary>
-        /// <param name="eventData">Pointer event data</param>
         public void OnPointerUp(PointerEventData eventData)
         {
-            if (isDisabled) return;
-            
+            if (isDisabled || buttonText == null) return; // Tambahan pengaman
+
             isPressed = false;
             buttonText.color = isHighlighted ? highlightedColor : defaultColor;
         }
 
-        /// <summary>
-        /// Update text color based on current state
-        /// </summary>
         private void UpdateTextColor()
         {
             if (buttonText == null) return;
 
             if (isDisabled)
-            {
                 buttonText.color = disabledColor;
-            }
+            else if (isPressed)
+                buttonText.color = pressedColor;
+            else if (isHighlighted)
+                buttonText.color = highlightedColor;
             else
-            {
-                if (isPressed)
-                    buttonText.color = pressedColor;
-                else if (isHighlighted)
-                    buttonText.color = highlightedColor;
-                else
-                    buttonText.color = defaultColor;
-            }
+                buttonText.color = defaultColor;
         }
 
         /// <summary>
