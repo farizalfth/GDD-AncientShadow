@@ -15,11 +15,15 @@ public class MenuManager : MonoBehaviour
 
     void Start()
     {
-        // 1. Tampilkan loading canvas dulu sebagai intro
+        // 1. OTOMATISASI AWAL (Memaksa semua panel mati di awal tanpa perlu mematikan ceklis di Editor)
+        if (settingsPanel != null) settingsPanel.SetActive(false);
+        if (exitPanel != null) exitPanel.SetActive(false);
+
+        // 2. Tampilkan loading canvas dulu sebagai intro
         if (loadingCanvas != null) loadingCanvas.SetActive(true);
         if (menuUtama != null) menuUtama.SetActive(false);
 
-        // 2. Jalankan fungsi untuk menutup loading setelah beberapa detik
+        // 3. Jalankan fungsi untuk menutup loading setelah beberapa detik
         Invoke("TutupLoadingIntro", 2.0f); // Muncul loading selama 2 detik
     }
 
