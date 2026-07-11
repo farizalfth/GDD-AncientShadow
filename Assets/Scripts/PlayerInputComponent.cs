@@ -25,7 +25,7 @@ namespace NaughtyCharacter
 
         private void Start()
         {
-            if (_slowMoUI != null) 
+            if (_slowMoUI != null)
                 _slowMoUI.SetActive(false);
         }
 
@@ -33,16 +33,20 @@ namespace NaughtyCharacter
         {
             Vector2 joystickInput = Vector2.zero;
 
-            // Memanggil properti Horizontal dan Vertical dari script Joystick Pack
             if (_joystick != null)
             {
                 joystickInput = new Vector2(_joystick.Horizontal, _joystick.Vertical);
             }
 
-            // Pilih input yang aktif (Joystick atau Keyboard)
+            // === TAMBAHKAN BARIS DEBUG INI ===
+            if (joystickInput.sqrMagnitude > 0f)
+            {
+                Debug.Log("Joystick Terbaca: " + joystickInput);
+            }
+            // =================================
+
             Vector2 activeMoveInput = joystickInput.sqrMagnitude > 0.001f ? joystickInput : _keyboardMoveInput;
 
-            // Logika pergerakan NaughtyCharacter
             bool hasMoveInput = activeMoveInput.sqrMagnitude > 0.0f;
             if (HasMoveInput && !hasMoveInput)
             {
@@ -52,13 +56,11 @@ namespace NaughtyCharacter
             MoveInput = activeMoveInput;
             HasMoveInput = hasMoveInput;
 
-            // Mendeteksi tombol T di keyboard untuk Slow Motion
             if (Keyboard.current != null && Keyboard.current.tKey.wasPressedThisFrame)
             {
                 ToggleSlowMo();
             }
         }
-
         // ==========================================
         //  FUNGSI BARU UNTUK JUMP (MOBILE BUTTON)
         // ==========================================
@@ -81,7 +83,7 @@ namespace NaughtyCharacter
         private void ActivateSlowMo()
         {
             Time.timeScale = _slowMoScale;
-            Time.fixedDeltaTime = 0.02f * Time.timeScale; 
+            Time.fixedDeltaTime = 0.02f * Time.timeScale;
             _isSlowMo = true;
             if (_slowMoUI != null) _slowMoUI.SetActive(true);
         }
