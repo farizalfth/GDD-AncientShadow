@@ -1,30 +1,35 @@
 using UnityEngine;
 using UnityEngine.UI; 
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class MisiKoleksiWaktu : MonoBehaviour
 {
     [Header("Pengaturan Waktu")]
-    public float waktuTersisa = 60f; // 60 detik (1 menit)
-    public Text waktuText; // Drag UI Text Timer ke sini
+    public float waktuTersisa = 60f; 
+    public Text waktuText; 
 
     [Header("Pengaturan Kunci")]
-    public int totalKunciHarusDikumpulkan = 3; // Jumlah kunci yang disebar
+    public int totalKunciHarusDikumpulkan = 3; 
     private int jumlahKunciTerkumpul = 0;
-    public Text jumlahKunciText; // Drag UI Text "Kunci: 0/3" ke sini
+    public Text jumlahKunciText; 
 
     [Header("Pengaturan UI Notifikasi & Game Over")]
-    public Text notifikasiText; // Drag UI Text Notifikasi ke sini
-    public GameObject panelGameOver; // Drag UI Panel Game Over ke sini (opsional)
+    // DIUBAH KE GAMEOBJECT: Agar bisa menerima Gambar "TeksLevel"
+    public GameObject notifikasiObject; 
+    public GameObject panelGameOver; 
 
     private bool gameSelesai = false;
     private bool pintuTerbuka = false;
 
     private void Start()
     {
-        Time.timeScale = 1f; // Pastikan waktu berjalan normal saat start
+        Time.timeScale = 1f; 
         if (panelGameOver != null) panelGameOver.SetActive(false);
-        if (notifikasiText != null) notifikasiText.text = "";
+        
+        // Sembunyikan gambar notifikasi saat awal permainan
+        if (notifikasiObject != null) notifikasiObject.SetActive(false); 
+        
         UpdateUIKunci();
     }
 
@@ -32,7 +37,6 @@ public class MisiKoleksiWaktu : MonoBehaviour
     {
         if (gameSelesai) return;
 
-        // Sistem Hitung Mundur Waktu
         if (waktuTersisa > 0)
         {
             waktuTersisa -= Time.deltaTime;
@@ -79,9 +83,24 @@ public class MisiKoleksiWaktu : MonoBehaviour
     void BukaPintu()
     {
         pintuTerbuka = true;
-        if (notifikasiText != null)
+        
+        // Aktifkan gambar notifikasi di layar
+        if (notifikasiObject != null)
         {
-            notifikasiText.text = "Pintu Level 2 Terbuka!";
+            notifikasiObject.SetActive(true);
+            
+            StopAllCoroutines(); 
+            StartCoroutine(SembunyikanNotifikasiSetelahDetik(3f));
+        }
+    }
+
+    // Coroutine untuk menyembunyikan gambar secara otomatis setelah beberapa detik
+    private IEnumerator SembunyikanNotifikasiSetelahDetik(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (notifikasiObject != null)
+        {
+            notifikasiObject.SetActive(false); // Sembunyikan kembali
         }
     }
 
@@ -93,7 +112,7 @@ public class MisiKoleksiWaktu : MonoBehaviour
     void TriggerGameOver()
     {
         gameSelesai = true;
-        Time.timeScale = 0; // Menghentikan pergerakan game
+        Time.timeScale = 0; 
         
         if (panelGameOver != null)
         {
@@ -101,7 +120,6 @@ public class MisiKoleksiWaktu : MonoBehaviour
         }
         else
         {
-            // Jika Anda tidak punya panel GameOver, game akan langsung restart otomatis
             RestartGame();
         }
     }

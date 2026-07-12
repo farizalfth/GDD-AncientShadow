@@ -66,6 +66,10 @@ namespace NaughtyCharacter
         // ==========================================
         public void SetJumpInput(bool value)
         {
+            // === TAMBAHKAN BARIS DEBUG INI UNTUK TES ===
+            Debug.Log("Sinyal Tombol Jump Mobile Terbaca: " + value);
+            // ===========================================
+
             JumpInput = value;
         }
 
