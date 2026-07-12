@@ -6,8 +6,6 @@ namespace NaughtyCharacter
     public class PlayerInputComponent : MonoBehaviour
     {
         [Header("Mobile Input")]
-        // Gunakan 'global::Joystick' untuk memaksa Unity mengambil script 
-        // dari folder 'Joystick Pack' Anda, bukan dari Input System.
         [SerializeField] private global::Joystick _joystick;
 
         [Header("Slow Motion Settings")]
@@ -15,13 +13,19 @@ namespace NaughtyCharacter
         [SerializeField] private GameObject _slowMoUI;
         private bool _isSlowMo = false;
 
+        [Header("Flashlight Settings")]
+        [SerializeField] private GameObject _flashlight; // Deklarasi Senter
+
         public Vector2 MoveInput { get; private set; }
         public Vector2 LastMoveInput { get; private set; }
         public Vector2 CameraInput { get; private set; }
         public bool JumpInput { get; private set; }
         public bool HasMoveInput { get; private set; }
 
+        // Penampung internal untuk memisahkan input keyboard dan mobile
         private Vector2 _keyboardMoveInput;
+        private bool _keyboardJumpActive;
+        private bool _mobileJumpPressed;
 
         private void Start()
         {
@@ -31,21 +35,14 @@ namespace NaughtyCharacter
 
         private void Update()
         {
+            // 1. Membaca pergerakan Joystick
             Vector2 joystickInput = Vector2.zero;
-
             if (_joystick != null)
             {
                 joystickInput = new Vector2(_joystick.Horizontal, _joystick.Vertical);
             }
 
-            // === TAMBAHKAN BARIS DEBUG INI ===
-            if (joystickInput.sqrMagnitude > 0f)
-            {
-                Debug.Log("Joystick Terbaca: " + joystickInput);
-            }
-            // =================================
-
-            Vector2 activeMoveInput = joystickInput.sqrMagnitude > 0.001f ? joystickInput : _keyboardMoveInput;
+            Vector2 activeMoveInput = joystickInput;
 
             bool hasMoveInput = activeMoveInput.sqrMagnitude > 0.0f;
             if (HasMoveInput && !hasMoveInput)
@@ -56,25 +53,39 @@ namespace NaughtyCharacter
             MoveInput = activeMoveInput;
             HasMoveInput = hasMoveInput;
 
+            // 2. Menggabungkan input lompat secara aman (Keyboard ATAU Mobile)
+            JumpInput = _keyboardJumpActive || _mobileJumpPressed;
+
+            // Fitur lambat lewat keyboard (Tombol T)
             if (Keyboard.current != null && Keyboard.current.tKey.wasPressedThisFrame)
             {
                 ToggleSlowMo();
             }
         }
-        // ==========================================
-        //  FUNGSI BARU UNTUK JUMP (MOBILE BUTTON)
-        // ==========================================
-        public void SetJumpInput(bool value)
-        {
-            // === TAMBAHKAN BARIS DEBUG INI UNTUK TES ===
-            Debug.Log("Sinyal Tombol Jump Mobile Terbaca: " + value);
-            // ===========================================
 
-            JumpInput = value;
+        private void LateUpdate()
+        {
+            // Reset input lompat mobile di akhir frame agar karakter sempat membaca status 'true'
+            if (_mobileJumpPressed)
+            {
+                _mobileJumpPressed = false;
+            }
         }
 
         // ==========================================
-        //  FUNGSI BARU UNTUK SLOWMO (MOBILE BUTTON)
+        //  FUNGSI UNTUK JUMP (MOBILE BUTTON)
+        // ==========================================
+        public void SetJumpInput(bool value)
+        {
+            Debug.Log("Sinyal Tombol Jump Mobile Terbaca: " + value);
+            if (value)
+            {
+                _mobileJumpPressed = true;
+            }
+        }
+
+        // ==========================================
+        //  FUNGSI UNTUK SLOWMO (MOBILE BUTTON)
         // ==========================================
         public void ToggleSlowMo()
         {
@@ -116,9 +127,21 @@ namespace NaughtyCharacter
         public void OnJumpEvent(InputAction.CallbackContext context)
         {
             if (context.started || context.performed)
-                JumpInput = true;
+                _keyboardJumpActive = true;
             else if (context.canceled)
-                JumpInput = false;
+                _keyboardJumpActive = false;
+        }
+
+        // ==========================================
+        //  FUNGSI UNTUK SENTER (MOBILE BUTTON)
+        // ==========================================
+        public void ToggleFlashlight()
+        {
+            if (_flashlight != null)
+            {
+                _flashlight.SetActive(!_flashlight.activeSelf);
+                Debug.Log("Status Senter: " + _flashlight.activeSelf);
+            }
         }
     }
 }
